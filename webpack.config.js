@@ -1,12 +1,16 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const { DefinePlugin } = require('webpack');
-const templateData = require('./data.json');
 
 module.exports = {
   entry: {
-    templateA: './src/templateA/index.tsx',
-    templateB: './src/templateB/index.tsx'
+    templateA: [
+      './src/shared/data.ts',
+      './src/templateA/index.tsx',
+    ],
+    templateB: [
+      './src/shared/data.ts',
+      './src/templateB/index.tsx',
+    ]
   },
   output: {
     path: path.resolve(__dirname, 'dist'),
@@ -29,9 +33,6 @@ module.exports = {
     extensions: ['.js', '.ts', '.tsx'],
   },
   plugins: [
-    new DefinePlugin({
-      TEMPLATE_DATA: JSON.stringify(templateData),
-    }),
     new HtmlWebpackPlugin({
       template: './src/templateA/index.html',
       filename: 'templateA.html',
@@ -45,7 +46,7 @@ module.exports = {
   ],
   devServer: {
     static: path.join(__dirname, 'dist'),
-    compress: true,
+    compress: false,
     port: 9000,
   },
 };

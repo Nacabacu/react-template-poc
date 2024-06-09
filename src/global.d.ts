@@ -1,3 +1,3 @@
-declare const TEMPLATE_DATA: {
+declare let TEMPLATE_DATA: {
   message: string;
 };
